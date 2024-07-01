@@ -1,0 +1,23 @@
+@import './base.css';
+
+:root {
+  --orange-color: #ec5b35;
+  --black-color: #152233;
+  --grey-color: #627c93;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  color: var(--black-color);
+}
+
+.container {
+  max-width: 1050px;
+  margin: 0 auto;
+  height: 100%;
+}
