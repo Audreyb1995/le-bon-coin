@@ -64,6 +64,12 @@ import OfferButton from './OfferButton.vue'
 header {
   height: 110px;
   border-bottom: 1px solid var(--grey-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: white;
 }
 
 .header-top {

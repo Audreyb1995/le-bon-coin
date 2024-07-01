@@ -1,5 +1,6 @@
 <script setup>
 import OfferButton from '@/components/OfferButton.vue'
+import OfferCard from '@/components/OfferCard.vue'
 import { onMounted, ref } from 'vue'
 
 import axios from 'axios'
@@ -9,11 +10,10 @@ const offersList = ref([])
 onMounted(async () => {
   try {
     const response = await axios.get(
-      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar'
+      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=owner.avatar&populate[1]=pictures'
     )
 
     offersList.value = response.data.data
-    console.log(offersList.value)
   } catch (error) {
     console.log(error.message)
   }
@@ -31,13 +31,21 @@ onMounted(async () => {
         <OfferButton />
       </div>
     </div>
-    <div class="offers-block" v-for="offers in offersList" :key="offers.id">
-      {{ offers.attributes.title }}
+    <div class="offers-block">
+      <OfferCard
+        v-for="offers in offersList"
+        :key="offers.data"
+        :offersInfos="offers.attributes"
+        :id="offers.id"
+      />
     </div>
   </main>
 </template>
 
 <style scoped>
+main {
+  padding-top: 110px;
+}
 .top-block {
   font-weight: bold;
   font-size: 24px;
@@ -79,6 +87,8 @@ img {
 }
 
 .offers-block {
-  border: 2px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>

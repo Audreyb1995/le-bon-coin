@@ -2,17 +2,20 @@
 
 :root {
   --orange-color: #ec5b35;
+  --orange-light: #fce9de;
   --black-color: #152233;
   --grey-color: #627c93;
+  --blue-light: #e0e5ea;
+  --blue-color: #0d3b68;
 }
 
 * {
   box-sizing: border-box;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: sans-serif;
 }
 
 body {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: sans-serif;
   color: var(--black-color);
 }
 
