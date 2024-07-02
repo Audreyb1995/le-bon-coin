@@ -6,9 +6,9 @@ import PublishedOfferButton from './PublishedOfferButton.vue'
   <header>
     <div class="container">
       <div class="header-top">
-        <!-- <RouterLink :to="{ name: 'home' }"> -->
-        <img src="../assets/img/logo.svg" />
-        <!-- </RouterLink> -->
+        <RouterLink :to="{ name: 'home' }">
+          <img src="../assets/img/logo.svg" />
+        </RouterLink>
 
         <div class="header-block-1">
           <PublishedOfferButton />

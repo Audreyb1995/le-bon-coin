@@ -4,6 +4,8 @@ import axios from 'axios'
 import { useCycleList } from '@vueuse/core'
 import { onMounted, ref, computed } from 'vue'
 
+import { formatPrice } from '../assets/utils/formatPrice'
+
 const props = defineProps({
   id: {
     type: String
@@ -32,6 +34,11 @@ const picturesList = computed(() => {
   const { state, prev, next } = useCycleList(offer.value.attributes.pictures.data)
   return { state, prev, next }
 })
+
+const formatedPrice = computed(() => {
+  const price = offer.value.attributes.price
+  return formatPrice(price)
+})
 </script>
 
 <template>
@@ -46,7 +53,7 @@ const picturesList = computed(() => {
         </div>
         <div class="offer-details">
           <p>{{ offer.attributes.title }}</p>
-          <p>{{ offer.attributes.price }} €</p>
+          <p>{{ formatedPrice }} €</p>
           <p>{{ date }}</p>
         </div>
         <div class="border-bottom"></div>

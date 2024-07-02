@@ -3,6 +3,8 @@ import { RouterLink } from 'vue-router'
 
 import { computed } from 'vue'
 
+import { formatPrice } from '../assets/utils/formatPrice.js'
+
 const props = defineProps({
   offerInfos: {
     type: Object
@@ -15,6 +17,11 @@ const props = defineProps({
 
 const date = computed(() => {
   return props.offerInfos.attributes.createdAt.split('T')[0].split('-').reverse().join('/')
+})
+
+const formatedPrice = computed(() => {
+  const price = props.offerInfos.attributes.price
+  return formatPrice(price)
 })
 </script>
 
@@ -31,7 +38,7 @@ const date = computed(() => {
       <div class="offer-infos">
         <img :src="offerInfos.attributes.pictures.data[0].attributes.url" />
         <p>{{ offerInfos.attributes.title }}</p>
-        <p>{{ offerInfos.attributes.price }} €</p>
+        <p>{{ formatedPrice }} €</p>
       </div>
       <div class="offer-infos-bottom">
         <p>{{ date }}</p>
