@@ -5,7 +5,7 @@
       <a href="https://www.linkedin.com/in/audrey-baufays-821123221/" target="_blank"
         >Audrey Baufays</a
       >
-      avec
+      with
       <a href="https://vuejs.org/" target="_blank">Vue.js</a>
     </p>
   </footer>
@@ -13,21 +13,18 @@
 
 <style scoped>
 footer {
-  height: 80px;
-  background-color: var(--blue-light);
+  height: var(--footer-height);
+  background-color: var(--grey-light);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-}
-
-p {
   font-family: sans-serif;
+  font-size: 16px;
 }
 
 a {
   text-decoration: none;
-  color: inherit;
   font-weight: bold;
+  color: inherit;
 }
 </style>

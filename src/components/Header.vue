@@ -1,136 +1,138 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import OfferButton from './OfferButton.vue'
+import PublishedOfferButton from './PublishedOfferButton.vue'
 </script>
 
 <template>
   <header>
     <div class="container">
-      <section class="header-top">
-        <RouterLink :to="{ name: 'home' }">
-          <img class="logo-img" src="../assets/img/logo.svg"
-        /></RouterLink>
+      <div class="header-top">
+        <!-- <RouterLink :to="{ name: 'home' }"> -->
+        <img src="../assets/img/logo.svg" />
+        <!-- </RouterLink> -->
 
-        <div class="search-and-button-block">
-          <OfferButton />
+        <div class="header-block-1">
+          <PublishedOfferButton />
           <div class="search-bar">
-            <input
-              type="text"
-              name="searching"
-              id="searching"
-              placeholder="Rechercher sur leboncoin"
-            /><font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+            <input name="search" placeholder="Rechercher sur leboncoin" />
+            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
           </div>
         </div>
         <div class="log-in">
           <font-awesome-icon :icon="['far', 'user']" />
-          <p>Se connecter</p>
+          <a>Se connecter</a>
         </div>
-      </section>
-      <section>
-        <div class="header-bottom">
-          <p>Immobilier</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Véhicules</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Locations de vacances</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Emploi</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Mode</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Maison & Jardin</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Famille</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Electronique</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Loisirs</p>
-          <font-awesome-icon :icon="['fas', 'circle']" />
-          <p>Autres</p>
-        </div>
-      </section>
+      </div>
+
+      <div class="header-bottom">
+        <p>Immobilier</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Véhicules</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Locations de vacances</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Emploi</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Mode</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Maison & Jardin</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Famille</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Electronique</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Loisirs</p>
+        <font-awesome-icon :icon="['fas', 'circle']" />
+        <p>Autres</p>
+      </div>
     </div>
   </header>
 </template>
 
 <style scoped>
+header {
+  height: var(--header-height);
+  border-bottom: 1px solid var(--medium-blue);
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  background-color: white;
+}
+
 .container {
-  padding: 10px 0 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-header {
-  height: 110px;
-  border-bottom: 1px solid var(--grey-color);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  background-color: white;
-}
 
-.header-top {
+.container > div {
   display: flex;
   justify-content: space-between;
 }
 
-.logo-img {
+img {
   width: 140px;
-  height: 30px;
 }
 
-.search-and-button-block {
+.header-block-1 {
   display: flex;
   gap: 20px;
 }
 
 .search-bar {
   display: flex;
-  gap: 10px;
+  background-color: var(--white);
+  padding: 7px;
+  border-radius: 10px;
   width: 300px;
-  height: 40px;
-  background-color: #f4f9fe;
-  border-radius: 5px;
-  padding: 5px;
 }
-
-.search-bar input {
+input {
+  background-color: inherit;
   border: none;
-  width: 100%;
-  background-color: #f4f9fe;
+  flex: 1;
   font-size: 16px;
 }
 
+input:focus {
+  border: none;
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--medium-blue);
+}
+
 .search-bar svg {
-  background-color: var(--orange-color);
-  padding: 5px;
-  border-radius: 5px;
+  background-color: var(--orange-main);
+  padding: 8px;
+  box-sizing: content-box;
+  border-radius: 7px;
 }
 
 .log-in {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  justify-content: center;
   align-items: center;
+  gap: 5px;
+}
+
+.log-in a {
+  font-size: 13px;
+  text-decoration: none;
 }
 
 .log-in svg {
-  font-size: 18px;
-  font-weight: 400;
-}
-
-.log-in p {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .header-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
 }
 
 .header-bottom svg {

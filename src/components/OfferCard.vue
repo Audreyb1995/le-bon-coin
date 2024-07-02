@@ -1,55 +1,53 @@
 <script setup>
+import { RouterLink } from 'vue-router'
+
 import { computed } from 'vue'
 
 const props = defineProps({
-  offersInfos: {
+  offerInfos: {
     type: Object
   },
+
   id: {
-    type: Number,
-    required: true
+    type: Number
   }
 })
 
-const formattedDate = computed(() => {
-  const createdAt = props.offersInfos.createdAt.split('T')[0].split('-').reverse().join('/')
-
-  return createdAt
+const date = computed(() => {
+  return props.offerInfos.attributes.createdAt.split('T')[0].split('-').reverse().join('/')
 })
 </script>
 
 <template>
   <RouterLink :to="{ name: 'offer', params: { id: id } }">
-    <div class="offer">
+    <section>
       <div class="owner-infos">
         <img
-          class="img-avatar"
-          :src="offersInfos.owner.data.attributes.avatar.data.attributes.url"
-          v-if="offersInfos.owner.data.attributes.avatar.data"
+          v-if="offerInfos.attributes.owner.data.attributes.avatar.data"
+          :src="offerInfos.attributes.owner.data.attributes.avatar.data.attributes.url"
         />
-        <p>{{ offersInfos.owner.data.attributes.username }}</p>
+        <p>{{ offerInfos.attributes.owner.data.attributes.username }}</p>
       </div>
-      <div class="article-infos">
-        <img class="img-article" :src="offersInfos.pictures.data[0].attributes.url" />
-        <h2>{{ offersInfos.title }}</h2>
-        <p>{{ offersInfos.price }}€</p>
-        <div class="bottom-article-infos">
-          <p class="date">{{ formattedDate }}</p>
-          <font-awesome-icon :icon="['far', 'heart']" />
-        </div>
+      <div class="offer-infos">
+        <img :src="offerInfos.attributes.pictures.data[0].attributes.url" />
+        <p>{{ offerInfos.attributes.title }}</p>
+        <p>{{ offerInfos.attributes.price }} €</p>
       </div>
-    </div>
+      <div class="offer-infos-bottom">
+        <p>{{ date }}</p>
+        <font-awesome-icon :icon="['far', 'heart']" />
+      </div>
+    </section>
   </RouterLink>
 </template>
 
 <style scoped>
-.offer {
+section {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  gap: 5px;
+  width: 185px;
   height: 380px;
-  gap: 20px;
-  margin-bottom: 70px;
 }
 
 a {
@@ -57,54 +55,52 @@ a {
   color: inherit;
 }
 
+/* ---- OWNER PART ---- */
+
 .owner-infos {
-  display: inline-block;
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
   font-size: 14px;
   font-weight: bold;
 }
+
 .owner-infos img {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  object-fit: cover;
 }
 
-.article-infos img {
-  width: 100%;
+/* ---- OFFER PART ---- */
+
+.offer-infos img {
   height: 240px;
+  width: 200px;
   border-radius: 10px;
   object-fit: cover;
 }
 
-.article-infos h2 {
+.offer-infos {
+  font-weight: 800;
   font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
+  line-height: 26px;
 }
 
-.article-infos p {
-  font-weight: bold;
-  font-size: bold;
-  margin-top: 10px;
-}
-
-.bottom-article-infos {
+.offer-infos-bottom {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-top: 45px;
-  color: var(--grey-color);
+  align-items: flex-end;
+  height: 100%;
 }
 
-.bottom-article-infos p {
-  font-weight: 400;
+.offer-infos-bottom p {
   font-size: 12px;
+  color: var(--medium-blue);
+  font-weight: 500;
 }
 
-.bottom-article-infos svg {
+.offer-infos-bottom svg {
   font-size: 20px;
+  color: var(--medium-blue);
 }
 </style>

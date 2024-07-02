@@ -1,26 +1,28 @@
 @import './base.css';
 
 :root {
-  --orange-color: #ec5b35;
+  --header-height: 110px;
+  --footer-height: 80px;
+  --dark-blue: #152233;
+  --medium-blue: #627c93;
+  --blue: #0f4171;
+  --white: #f4f9fe;
+  --orange-main: #ec5b35;
+  --orange-dark: #924726;
   --orange-light: #fce9de;
-  --black-color: #152233;
-  --grey-color: #627c93;
-  --blue-light: #e0e5ea;
-  --blue-color: #0d3b68;
+  --grey-light: #e6eaee;
 }
 
 * {
   box-sizing: border-box;
-  font-family: sans-serif;
 }
 
 body {
-  font-family: sans-serif;
-  color: var(--black-color);
+  font-family: 'Nunito Sans', sans-serif;
+  color: var(--dark-blue);
 }
 
 .container {
-  max-width: 1050px;
+  width: 1055px;
   margin: 0 auto;
-  height: 100%;
 }

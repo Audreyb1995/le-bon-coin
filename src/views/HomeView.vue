@@ -1,19 +1,19 @@
 <script setup>
-import OfferButton from '@/components/OfferButton.vue'
-import OfferCard from '@/components/OfferCard.vue'
 import { onMounted, ref } from 'vue'
-
 import axios from 'axios'
 
-const offersList = ref([])
+import TimeToSell from '../components/TimeToSell.vue'
+import OfferCard from '@/components/OfferCard.vue'
+
+const offersList = ref(null)
 
 onMounted(async () => {
   try {
-    const response = await axios.get(
-      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=owner.avatar&populate[1]=pictures'
+    const { data } = await axios.get(
+      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar'
     )
-
-    offersList.value = response.data.data
+    offersList.value = data.data
+    console.log(offersList.value.length)
   } catch (error) {
     console.log(error.message)
   }
@@ -22,73 +22,37 @@ onMounted(async () => {
 
 <template>
   <main class="container">
-    <div class="top-block">
-      <p>Des millions de petites annonces et autant d’occasions de se faire plaisir</p>
-      <div class="button-block">
-        <img class="img-coral" src="../assets/img/onde-corail.svg" />
-        <p>C'est le moment de vendre</p>
-        <img class="img-blue" src="../assets/img/feuille-bleue.svg" />
-        <OfferButton />
+    <p v-if="!offersList">Chargement en cours ...</p>
+    <div v-else>
+      <div class="top-main">
+        <p>Des millions de petites annonces et autant d’occasions de se faire plaisir</p>
+        <TimeToSell />
       </div>
-    </div>
-    <div class="offers-block">
-      <OfferCard
-        v-for="offers in offersList"
-        :key="offers.data"
-        :offersInfos="offers.attributes"
-        :id="offers.id"
-      />
+      <div class="offers-block">
+        <OfferCard v-for="offer in offersList" :key="offer.id" :offerInfos="offer" :id="offer.id" />
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped>
 main {
-  padding-top: 110px;
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  margin-top: 140px;
 }
-.top-block {
-  font-weight: bold;
+
+.top-main > p {
   font-size: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  margin: 30px;
-}
-.button-block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  height: 80px;
-  background-color: #fce9dd;
-  border-radius: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  position: relative;
-  overflow: hidden;
-}
-
-img {
-  height: 80px;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-}
-
-.img-coral {
-  left: 0;
-}
-
-.img-blue {
-  right: 0;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 .offers-block {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  margin: 40px 0;
+  gap: 40px 30px;
 }
 </style>
