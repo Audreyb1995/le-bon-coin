@@ -1,5 +1,17 @@
 <script setup>
+import { RouterLink } from 'vue-router'
+import { inject } from 'vue'
+
 import PublishedOfferButton from './PublishedOfferButton.vue'
+
+const GlobalStore = inject('GlobalStore')
+
+const disconnection = () => {
+  GlobalStore.changeUserInfos({
+    username: '',
+    token: ''
+  })
+}
 </script>
 
 <template>
@@ -10,17 +22,29 @@ import PublishedOfferButton from './PublishedOfferButton.vue'
           <img src="../assets/img/logo.svg" />
         </RouterLink>
 
-        <div class="header-block-1">
+        <div class="header-middle">
           <PublishedOfferButton />
           <div class="search-bar">
             <input name="search" placeholder="Rechercher sur leboncoin" />
             <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
           </div>
         </div>
-        <div class="log-in">
-          <font-awesome-icon :icon="['far', 'user']" />
-          <a>Se connecter</a>
+        <div v-if="GlobalStore.userInfos.value.username" class="connected-disconnected">
+          <div class="connection">
+            <font-awesome-icon :icon="['far', 'user']" />
+            <p>{{ GlobalStore.userInfos.value.username }}</p>
+          </div>
+          <div class="disconnection">
+            <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" @click="disconnection" />
+          </div>
         </div>
+
+        <RouterLink v-else :to="{ name: 'login' }">
+          <div class="log-in">
+            <font-awesome-icon :icon="['far', 'user']" />
+            <a>Se connecter</a>
+          </div>
+        </RouterLink>
       </div>
 
       <div class="header-bottom">
@@ -73,11 +97,13 @@ header {
   justify-content: space-between;
 }
 
+/* ------ HEADER TOP ----------------------------- */
+
 img {
   width: 140px;
 }
 
-.header-block-1 {
+.header-middle {
   display: flex;
   gap: 20px;
 }
@@ -112,6 +138,8 @@ input::placeholder {
   border-radius: 7px;
 }
 
+/* ----- LOG IN PART -----*/
+
 .log-in {
   display: flex;
   flex-direction: column;
@@ -125,9 +153,39 @@ input::placeholder {
   text-decoration: none;
 }
 
-.log-in svg {
+/* ------- CONNECTED / DISCONNECTED PART ----- */
+
+.connected-disconnected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.connection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: none;
+  background-color: #ffffff;
+  gap: 5px;
+}
+
+.connection svg {
   font-size: 16px;
 }
+
+.connection p {
+  font-size: 12px;
+}
+
+.disconnection {
+  cursor: pointer;
+  color: var(--medium-blue);
+}
+
+/* ------ HEADER BOTTOM ----------------------------- */
 
 .header-bottom {
   display: flex;

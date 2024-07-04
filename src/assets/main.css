@@ -3,13 +3,13 @@
 :root {
   --header-height: 110px;
   --footer-height: 80px;
+  --blue: #0f4171;
   --dark-blue: #152233;
   --medium-blue: #627c93;
-  --blue: #0f4171;
-  --white: #f4f9fe;
   --orange-main: #ec5b35;
   --orange-dark: #924726;
   --orange-light: #fce9de;
+  --white: #f4f9fe;
   --grey-light: #e6eaee;
 }
 
@@ -20,9 +20,27 @@
 body {
   font-family: 'Nunito Sans', sans-serif;
   color: var(--dark-blue);
+  height: 100%;
 }
 
 .container {
   width: 1055px;
   margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }

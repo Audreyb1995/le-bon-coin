@@ -58,7 +58,7 @@ const formatedPrice = computed(() => {
         </div>
         <div class="border-bottom"></div>
         <div>
-          <h2>Description</h2>
+          <h3>Description</h3>
           <p>{{ offer.attributes.description }}</p>
         </div>
         <div class="border-bottom"></div>
@@ -93,6 +93,7 @@ const formatedPrice = computed(() => {
 <style scoped>
 main {
   margin-top: 130px;
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 .offer-block {
   display: flex;
@@ -148,12 +149,6 @@ main {
   font-size: 12px;
   color: var(--medium-blue);
   font-weight: 400;
-}
-
-h2 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 20px;
 }
 
 /* ---- OWNER PART ---- */

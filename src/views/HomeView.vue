@@ -13,7 +13,6 @@ onMounted(async () => {
       'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar'
     )
     offersList.value = data.data
-    console.log(offersList.value.length)
   } catch (error) {
     console.log(error.message)
   }
