@@ -59,8 +59,10 @@ const handleDisplayPassword = () => {
   <main>
     <div class="container">
       <div class="content">
-        <h2>Bonjour !</h2>
-        <p>Inscrivez-vous pour découvrir toutes nos fonctionnalités.</p>
+        <div>
+          <h2>Bonjour !</h2>
+          <p>Inscrivez-vous pour découvrir toutes nos fonctionnalités.</p>
+        </div>
 
         <form @submit.prevent="submitSignUp">
           <label for="username">Nom <span>*</span></label>
@@ -126,16 +128,17 @@ main {
 .content {
   background-color: white;
   width: 480px;
+  height: 490px;
   box-shadow: 0 0 10px var(--grey-light);
   border-radius: 20px;
-  padding: 10px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
-.content p {
-  margin-bottom: 5px;
-  padding-left: 20px;
+.content > div p {
+  padding: 10px 0;
 }
 
 /* ---- FORM  ------------------------------*/
@@ -143,7 +146,7 @@ main {
 form {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+
   gap: 10px;
 }
 
@@ -160,7 +163,6 @@ input {
   border-radius: 10px;
   border: 1px solid var(--medium-blue);
   outline: none;
-  margin-bottom: 10px;
 }
 
 .password-block {
@@ -215,12 +217,11 @@ svg {
   color: var(--orange-main);
 }
 
-.content p:last-child {
+.content > p {
   text-align: center;
-  padding: 10px;
 }
 
-.content > div > p a {
+.content > p a {
   font-weight: bold;
   text-decoration: underline;
 }

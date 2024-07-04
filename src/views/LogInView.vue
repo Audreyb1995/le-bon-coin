@@ -57,8 +57,11 @@ const handleDisplayPassword = () => {
   <main>
     <div class="container">
       <div class="content">
-        <h2>Bonjour !</h2>
-        <p>Connectez-vous pour découvrir toutes nos fonctionnalités.</p>
+        <div>
+          <h2>Bonjour !</h2>
+          <p>Connectez-vous pour découvrir toutes nos fonctionnalités.</p>
+        </div>
+
         <form @submit.prevent="submitLogIn">
           <label for="identifier">E-mail<span>*</span></label>
           <input
@@ -120,17 +123,18 @@ main {
 .content {
   background-color: white;
   width: 480px;
+  height: 490px;
   box-shadow: 0 0 10px var(--grey-light);
   border-radius: 20px;
-  padding: 10px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
-.content p:first-child {
+.content > div p {
   font-size: 16px;
-  padding-left: 20px;
-  margin-bottom: 10px;
+  padding: 10px 0;
 }
 
 /* ----- FORM PART ------------------ */
@@ -138,8 +142,10 @@ main {
 form {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   gap: 10px;
+  flex: 1;
+  margin: 40px 0px;
+  justify-content: space-between;
 }
 
 label span {
@@ -150,7 +156,6 @@ input {
   border-radius: 10px;
   border: 1px solid var(--medium-blue);
   outline: none;
-  margin-bottom: 10px;
 }
 
 .password-block {
@@ -206,12 +211,11 @@ svg {
   font-size: 16px;
 }
 
-.content p:last-child {
+.content > p {
   text-align: center;
-  margin: 15px;
 }
 
-.content > div > p a {
+.content > p a {
   font-weight: bold;
   text-decoration: underline;
 }
