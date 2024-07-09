@@ -1,16 +1,37 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-import { inject } from 'vue'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { inject, ref } from 'vue'
 
 import PublishedOfferButton from './PublishedOfferButton.vue'
+
+const search = ref('')
+
+const route = useRoute()
+const router = useRouter()
 
 const GlobalStore = inject('GlobalStore')
 
 const disconnection = () => {
+  $cookies.remove('UserCookie')
+  $cookies.remove('TokenCookie')
   GlobalStore.changeUserInfos({
-    username: '',
-    token: ''
+    username: null,
+    token: null
   })
+}
+
+const handleSearch = () => {
+  const queries = { ...route.query }
+
+  if (search.value) {
+    queries.title = search.value
+  } else {
+    delete queries.title
+  }
+
+  queries.page = 1
+
+  router.push({ name: 'home', query: queries })
 }
 </script>
 
@@ -24,11 +45,13 @@ const disconnection = () => {
 
         <div class="header-middle">
           <PublishedOfferButton />
-          <div class="search-bar">
-            <input name="search" placeholder="Rechercher sur leboncoin" />
-            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-          </div>
+
+          <form @submit.prevent="handleSearch" class="search-bar">
+            <input name="search" placeholder="Rechercher sur leboncoin" v-model="search" />
+            <button><font-awesome-icon :icon="['fas', 'magnifying-glass']" /></button>
+          </form>
         </div>
+
         <div v-if="GlobalStore.userInfos.value.username" class="connected-disconnected">
           <div class="connection">
             <font-awesome-icon :icon="['far', 'user']" />
@@ -110,13 +133,13 @@ img {
 
 .search-bar {
   display: flex;
-  background-color: var(--white);
+  background-color: var(--grey-light);
   padding: 7px;
   border-radius: 10px;
   width: 300px;
 }
 input {
-  background-color: inherit;
+  background-color: var(--grey-light);
   border: none;
   flex: 1;
   font-size: 16px;
@@ -129,6 +152,12 @@ input:focus {
 
 input::placeholder {
   color: var(--medium-blue);
+}
+
+.search-bar button {
+  background-color: #ffffff00;
+  border: none;
+  cursor: pointer;
 }
 
 .search-bar svg {

@@ -11,6 +11,8 @@ const password = ref('')
 const errorMessage = ref('')
 const isConnected = ref(false)
 
+const inputType = ref('password')
+
 const clearErrorMessage = () => {
   errorMessage.value = ''
 }
@@ -34,10 +36,13 @@ const submitLogIn = async () => {
         token: data.jwt
       })
 
-      router.push({ name: 'home' })
+      $cookies.set('UserCookie', GlobalStore.userInfos.value.username)
+      $cookies.set('TokenCookie', GlobalStore.userInfos.value.token)
+      console.log('cookies saved')
 
-      console.log(data)
+      router.push({ name: 'home' })
     } catch (error) {
+      console.log(error.response.data.error)
       isConnected.value = false
       errorMessage.value = 'Un problème est survenu, veuillez essayer à nouveau'
     }
@@ -45,8 +50,6 @@ const submitLogIn = async () => {
     errorMessage.value = 'Veuillez remplir tous les champs'
   }
 }
-
-const inputType = ref('password')
 
 const handleDisplayPassword = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
@@ -63,7 +66,7 @@ const handleDisplayPassword = () => {
         </div>
 
         <form @submit.prevent="submitLogIn">
-          <label for="identifier">E-mail<span>*</span></label>
+          <label for="identifier">E-mail <sup>*</sup></label>
           <input
             type="text"
             name="identifier"
@@ -71,7 +74,7 @@ const handleDisplayPassword = () => {
             v-model="identifier"
             @input="clearErrorMessage"
           />
-          <label for="password">Mot de passe<span>*</span></label>
+          <label for="password">Mot de passe <sup>*</sup></label>
           <div class="password-block">
             <input
               :type="inputType"
@@ -106,13 +109,14 @@ const handleDisplayPassword = () => {
 <style scoped>
 main {
   margin-top: 110px;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
 .container {
   background-image: url(../assets/img/illustration.png);
   background-size: cover;
   background-position: bottom;
-  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,15 +151,15 @@ form {
   margin: 40px 0px;
   justify-content: space-between;
 }
-
-label span {
-  font-size: 12px;
-}
 input {
   height: 45px;
   border-radius: 10px;
   border: 1px solid var(--medium-blue);
   outline: none;
+}
+
+sup {
+  color: var(--medium-blue);
 }
 
 .password-block {
@@ -206,9 +210,8 @@ svg {
 /* ---------  BOTTOM PART -----------------------*/
 
 .error-message {
-  text-align: center;
+  margin-bottom: 20px;
   color: var(--orange-main);
-  font-size: 16px;
 }
 
 .content > p {

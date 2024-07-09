@@ -1,10 +1,10 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, ref } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import { ref } from 'vue'
+import VueCookies from 'vue-cookies'
 
 /* ------- IMPORT FONTAWESOME ------  */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -27,7 +27,9 @@ import {
   faLocationDot,
   faCheckDouble,
   faArrowRight,
-  faArrowRightFromBracket
+  faArrowRightFromBracket,
+  faAngleLeft,
+  faAngleRight
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -44,24 +46,31 @@ library.add(
   faArrowRight,
   faArrowRightFromBracket,
   faEye,
-  faEyeSlash
+  faEyeSlash,
+  faAngleLeft,
+  faAngleRight
 )
 
-/* -------------------------*/
+/* ------------------ */
+
+const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon)
+
+/* ------ DEPENDENCY PROVIDER ----- */
 
 const userInfos = ref({
-  username: '',
-  token: ''
+  username: $cookies.get('UserCookie') ?? '',
+  token: $cookies.get('TokenCookie') ?? ''
 })
 
 const changeUserInfos = (infos) => {
   userInfos.value = infos
 }
 
-const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon)
-
 app.provide('GlobalStore', { userInfos: userInfos, changeUserInfos: changeUserInfos })
 
+/* ------------------ */
+
 app.use(router)
+app.use(VueCookies)
 
 app.mount('#app')

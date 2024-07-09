@@ -12,7 +12,7 @@ const password = ref('')
 const isConnected = ref(false)
 const errorMessage = ref('')
 
-const GlobaleStore = inject('GlobalStore')
+const GlobalStore = inject('GlobalStore')
 
 const clearErrorMessage = () => {
   if (errorMessage.value) {
@@ -33,10 +33,13 @@ const submitSignUp = async () => {
         }
       )
 
-      GlobaleStore.changeUserInfos({
+      GlobalStore.changeUserInfos({
         username: data.user.username,
         token: data.jwt
       })
+
+      $cookies.set('UserCookie', GlobalStore.userInfos.value.username)
+      $cookies.set('TokenCookie', GlobalStore.userInfos.value.token)
 
       router.push({ name: 'home' })
     } catch (error) {
@@ -65,7 +68,7 @@ const handleDisplayPassword = () => {
         </div>
 
         <form @submit.prevent="submitSignUp">
-          <label for="username">Nom <span>*</span></label>
+          <label for="username">Nom <sup>*</sup></label>
           <input
             type="text"
             name="username"
@@ -73,10 +76,10 @@ const handleDisplayPassword = () => {
             v-model="username"
             @input="clearErrorMessage"
           />
-          <label for="email">E-mail <span>*</span></label>
+          <label for="email">E-mail <sup>*</sup></label>
           <input type="text" name="email" id="email" v-model="email" @input="clearErrorMessage" />
 
-          <label for="password">Mot de passe<span>*</span></label>
+          <label for="password">Mot de passe <sup>*</sup></label>
           <div class="password-block">
             <input
               :type="inputType"
@@ -111,10 +114,10 @@ const handleDisplayPassword = () => {
 <style scoped>
 main {
   margin-top: 110px;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
 .container {
-  min-height: calc(100vh - var(--header-height) - var(--footer-height));
   background-image: url(../assets/img/illustration.png);
   background-size: cover;
   background-position: bottom;
@@ -150,14 +153,6 @@ form {
   gap: 10px;
 }
 
-label {
-  font-size: 16px;
-  font-weight: 500;
-}
-label span {
-  font-size: 12px;
-}
-
 input {
   height: 45px;
   border-radius: 10px;
@@ -165,6 +160,9 @@ input {
   outline: none;
 }
 
+sup {
+  color: var(--medium-blue);
+}
 .password-block {
   display: flex;
   height: 45px;
@@ -213,8 +211,8 @@ svg {
 /* ------ BOTTOM BLOCK ---------------------------*/
 
 .error-message {
-  text-align: center;
   color: var(--orange-main);
+  margin: 20px 0px;
 }
 
 .content > p {
