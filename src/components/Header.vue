@@ -12,12 +12,13 @@ const router = useRouter()
 const GlobalStore = inject('GlobalStore')
 
 const disconnection = () => {
-  $cookies.remove('UserCookie')
-  $cookies.remove('TokenCookie')
+  $cookies.remove('userInfos')
+
   GlobalStore.changeUserInfos({
     username: null,
     token: null
   })
+  router.push({ name: 'home' })
 }
 
 const handleSearch = () => {
@@ -33,6 +34,13 @@ const handleSearch = () => {
 
   router.push({ name: 'home', query: queries })
 }
+
+const handleInputSearch = () => {
+  if (search.value.length === 0) {
+    router.push({ name: 'home' })
+  }
+  console.log(search.value.length)
+}
 </script>
 
 <template>
@@ -47,7 +55,12 @@ const handleSearch = () => {
           <PublishedOfferButton />
 
           <form @submit.prevent="handleSearch" class="search-bar">
-            <input name="search" placeholder="Rechercher sur leboncoin" v-model="search" />
+            <input
+              name="search"
+              placeholder="Rechercher sur leboncoin"
+              v-model="search"
+              @input="handleInputSearch"
+            />
             <button><font-awesome-icon :icon="['fas', 'magnifying-glass']" /></button>
           </form>
         </div>

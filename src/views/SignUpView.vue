@@ -25,7 +25,7 @@ const submitSignUp = async () => {
     try {
       isConnected.value = true
       const { data } = await axios.post(
-        'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/auth/local/register',
+        'https://site--backend-le-bon-coin--grfpcmvjpg8z.code.run/api/auth/local/register',
         {
           email: email.value,
           username: username.value,
@@ -33,13 +33,15 @@ const submitSignUp = async () => {
         }
       )
 
-      GlobalStore.changeUserInfos({
+      const userInfos = {
+        id: data.user.id,
         username: data.user.username,
         token: data.jwt
-      })
+      }
 
-      $cookies.set('UserCookie', GlobalStore.userInfos.value.username)
-      $cookies.set('TokenCookie', GlobalStore.userInfos.value.token)
+      GlobalStore.changeUserInfos(userInfos)
+
+      $cookies.set('userInfos', userInfos)
 
       router.push({ name: 'home' })
     } catch (error) {
@@ -124,6 +126,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 /* ----- TOP BLOCK --------------------- */

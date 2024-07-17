@@ -27,12 +27,11 @@ onMounted(() => {
       }
 
       const { data } = await axios.get(
-        `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&filters[title][$containsi]=${props.title}${pricefilters}&pagination[page]=${props.page}&pagination[pageSize]=10&sort=${props.sort}`
+        `https://site--backend-le-bon-coin--grfpcmvjpg8z.code.run/api/offers?populate[0]=picture&populate[1]=owner.avatar&filters[title][$containsi]=${props.title}${pricefilters}&pagination[page]=${props.page}&pagination[pageSize]=10&sort=${props.sort}`
       )
 
-      console.log('HomeView - data >>>', data)
-
       offersList.value = data.data
+      console.log(offersList.value)
       numOfPages.value = data.meta.pagination.pageCount
       pagination.value = data.meta.pagination
     } catch (error) {

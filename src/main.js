@@ -29,7 +29,9 @@ import {
   faArrowRight,
   faArrowRightFromBracket,
   faAngleLeft,
-  faAngleRight
+  faAngleRight,
+  faCameraAlt,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -48,7 +50,9 @@ library.add(
   faEye,
   faEyeSlash,
   faAngleLeft,
-  faAngleRight
+  faAngleRight,
+  faCameraAlt,
+  faCheck
 )
 
 /* ------------------ */
@@ -57,18 +61,19 @@ const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon)
 
 /* ------ DEPENDENCY PROVIDER ----- */
 
-const userInfos = ref({
-  username: $cookies.get('UserCookie') ?? '',
-  token: $cookies.get('TokenCookie') ?? ''
-})
+const userInfos = ref(
+  $cookies.get('userInfos') || {
+    id: '',
+    username: '',
+    token: ''
+  }
+)
 
 const changeUserInfos = (infos) => {
   userInfos.value = infos
 }
 
 app.provide('GlobalStore', { userInfos: userInfos, changeUserInfos: changeUserInfos })
-
-/* ------------------ */
 
 app.use(router)
 app.use(VueCookies)

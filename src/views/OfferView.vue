@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { useCycleList } from '@vueuse/core'
 import { onMounted, ref, computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
 import { formatPrice } from '../assets/utils/formatPrice'
 
@@ -17,7 +18,7 @@ const offer = ref(null)
 onMounted(async () => {
   try {
     const { data } = await axios.get(
-      `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers/${props.id}?populate[0]=pictures&populate[1]=owner.avatar`
+      `https://site--backend-le-bon-coin--grfpcmvjpg8z.code.run/api/offers/${props.id}?populate[0]=picture&populate[1]=owner.avatar`
     )
     offer.value = data.data
     console.log(offer.value)
@@ -31,7 +32,7 @@ const date = computed(() => {
 })
 
 const picturesList = computed(() => {
-  const { state, prev, next } = useCycleList(offer.value.attributes.pictures.data)
+  const { state, prev, next } = useCycleList(offer.value.attributes.picture.data)
   return { state, prev, next }
 })
 
@@ -48,7 +49,7 @@ const formatedPrice = computed(() => {
       <div class="offer-content">
         <div class="img-offer">
           <font-awesome-icon :icon="['fas', 'chevron-left']" @click="picturesList.prev()" />
-          <img :src="picturesList.state.value.attributes.url" />
+          <img v-if="picturesList" :src="picturesList.state.value.attributes.url" />
           <font-awesome-icon :icon="['fas', 'chevron-right']" @click="picturesList.next()" />
         </div>
         <div class="offer-details">
@@ -82,7 +83,11 @@ const formatedPrice = computed(() => {
 
         <div class="btn-block">
           <div class="border-bottom"></div>
-          <button>Acheter</button>
+
+          <button>
+            <RouterLink :to="{ name: 'payment', params: props.id }">Acheter</RouterLink>
+          </button>
+
           <button>Message</button>
         </div>
       </div>
@@ -125,8 +130,9 @@ main {
 }
 
 .img-offer img {
-  width: 250px;
+  width: 400px;
   height: 350px;
+  object-fit: cover;
 }
 
 .img-offer svg {
@@ -215,5 +221,10 @@ main {
 
 .btn-block button:last-child {
   background-color: var(--blue);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

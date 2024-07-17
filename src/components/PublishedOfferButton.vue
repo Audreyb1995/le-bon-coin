@@ -1,5 +1,13 @@
+<script setup>
+import { RouterLink } from 'vue-router'
+</script>
+
 <template>
-  <button><font-awesome-icon :icon="['far', 'plus-square']" /> Déposer une annonce</button>
+  <RouterLink :to="{ name: 'publish' }">
+    <button>
+      <font-awesome-icon :icon="['far', 'plus-square']" /> Déposer une annonce
+    </button></RouterLink
+  >
 </template>
 
 <style scoped>
@@ -12,5 +20,10 @@ button {
   border-radius: 10px;
   padding: 10px;
   cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

@@ -1,9 +1,10 @@
 <script setup>
 import { ref, inject } from 'vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 const identifier = ref('')
 const password = ref('')
@@ -24,23 +25,24 @@ const submitLogIn = async () => {
     try {
       isConnected.value = true
       const { data } = await axios.post(
-        'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/auth/local',
+        'https://site--backend-le-bon-coin--grfpcmvjpg8z.code.run/api/auth/local',
         {
           identifier: identifier.value,
           password: password.value
         }
       )
 
-      GlobalStore.changeUserInfos({
+      const userInfos = {
+        id: data.user.id,
         username: data.user.username,
         token: data.jwt
-      })
+      }
 
-      $cookies.set('UserCookie', GlobalStore.userInfos.value.username)
-      $cookies.set('TokenCookie', GlobalStore.userInfos.value.token)
-      console.log('cookies saved')
+      GlobalStore.changeUserInfos(userInfos)
 
-      router.push({ name: 'home' })
+      $cookies.set('userInfos', userInfos)
+
+      router.push({ path: route.query.redirect || '/' })
     } catch (error) {
       console.log(error.response.data.error)
       isConnected.value = false
@@ -116,7 +118,7 @@ main {
   background-image: url(../assets/img/illustration.png);
   background-size: cover;
   background-position: bottom;
-
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
