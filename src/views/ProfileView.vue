@@ -19,8 +19,6 @@ onMounted(async () => {
       }
     )
     profileInfos.value = response.data
-    console.log('test')
-    console.log(profileInfos.value)
   } catch (error) {
     console.log(error)
   }
@@ -65,7 +63,7 @@ const handleDeleteOffer = (id) => {
       <p v-if="!profileInfos">Chargement en cours...</p>
       <div v-else>
         <div class="infos-profile-block">
-          <img v-if="!profileInfos.avatar" :src="profileInfos.avatar.url" />
+          <img v-if="profileInfos.avatar !== null" :src="profileInfos.avatar.url" />
           <div v-else class="avatar">
             <p>{{ usernameFirstLetter }}</p>
           </div>
