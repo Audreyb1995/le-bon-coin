@@ -67,8 +67,10 @@ const handleInputSearch = () => {
 
         <div v-if="GlobalStore.userInfos.value.username" class="connected-disconnected">
           <div class="connection">
-            <font-awesome-icon :icon="['far', 'user']" />
-            <p>{{ GlobalStore.userInfos.value.username }}</p>
+            <RouterLink :to="{ name: 'profile' }">
+              <font-awesome-icon :icon="['far', 'user']" />
+              <p>{{ GlobalStore.userInfos.value.username }}</p>
+            </RouterLink>
           </div>
           <div class="disconnection">
             <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" @click="disconnection" />
@@ -220,6 +222,7 @@ input::placeholder {
 
 .connection p {
   font-size: 12px;
+  margin-top: 5px;
 }
 
 .disconnection {
@@ -227,6 +230,11 @@ input::placeholder {
   color: var(--medium-blue);
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+}
 /* ------ HEADER BOTTOM ----------------------------- */
 
 .header-bottom {

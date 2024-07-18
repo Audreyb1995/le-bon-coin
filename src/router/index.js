@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import LogInView from '../views/LogInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import PaymentView from '@/views/PaymentView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 import { inject } from 'vue'
 
@@ -49,6 +51,18 @@ const router = createRouter({
       component: PaymentView,
       props: true,
       meta: { requireAuth: true }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+      props: true,
+      meta: { requireAuth: true }
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'notfound',
+      component: NotFoundView
     }
   ],
 

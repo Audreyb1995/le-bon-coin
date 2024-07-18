@@ -22,6 +22,7 @@ onMounted(() => {
       if (props.maxPrice) {
         pricefilters += `&filters[price][$lte]=${props.maxPrice}`
       }
+
       if (props.minPrice) {
         pricefilters += `&filters[price][$gte]=${props.minPrice}`
       }
@@ -31,7 +32,6 @@ onMounted(() => {
       )
 
       offersList.value = data.data
-      console.log(offersList.value)
       numOfPages.value = data.meta.pagination.pageCount
       pagination.value = data.meta.pagination
     } catch (error) {
