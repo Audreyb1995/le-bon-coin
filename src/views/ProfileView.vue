@@ -19,8 +19,8 @@ onMounted(async () => {
       }
     )
     profileInfos.value = response.data
-
-    console.log(response)
+    console.log('test')
+    console.log(profileInfos.value)
   } catch (error) {
     console.log(error)
   }
