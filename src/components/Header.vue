@@ -39,7 +39,6 @@ const handleInputSearch = () => {
   if (search.value.length === 0) {
     router.push({ name: 'home' })
   }
-  console.log(search.value.length)
 }
 </script>
 

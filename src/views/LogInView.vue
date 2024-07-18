@@ -44,7 +44,6 @@ const submitLogIn = async () => {
 
       router.push({ path: route.query.redirect || '/' })
     } catch (error) {
-      console.log(error.response.data.error)
       isConnected.value = false
       errorMessage.value = 'Un problème est survenu, veuillez essayer à nouveau'
     }

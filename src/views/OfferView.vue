@@ -21,7 +21,6 @@ onMounted(async () => {
       `https://site--backend-le-bon-coin--grfpcmvjpg8z.code.run/api/offers/${props.id}?populate[0]=picture&populate[1]=owner.avatar`
     )
     offer.value = data.data
-    console.log(offer.value)
   } catch (error) {
     console.log(error.message)
   }

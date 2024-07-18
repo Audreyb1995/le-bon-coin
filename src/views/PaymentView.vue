@@ -39,8 +39,6 @@ onMounted(async () => {
     )
 
     offerInfo.value = response.data.data
-
-    console.log(offerInfo.value)
   } catch (error) {
     console.log(error)
   }
@@ -67,8 +65,6 @@ const handlePayment = async () => {
     const { token } = await stripe.createToken(cardElement.value)
     const stripeToken = token.id
 
-    console.log(GlobalStore.userInfos.value.token)
-
     const response = await axios.post(
       `https://site--backend-le-bon-coin--grfpcmvjpg8z.code.run/api/offers/payment`,
       {
@@ -86,7 +82,7 @@ const handlePayment = async () => {
 
     if (response.data.status === 'succeeded') {
       confirmedPayment.value = true
-      console.log(confirmedPayment.value)
+
       alert(
         `Paiement de ${total.value} € validé pour l'achat du produit ${offerInfo.value.attributes.title} par ${firstname.value} ${surname.value}`
       )

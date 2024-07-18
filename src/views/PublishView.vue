@@ -19,8 +19,6 @@ const errorMessage = ref('')
 const handlePublish = async () => {
   isPublishing.value = true
 
-  console.log(pictures.value)
-
   if (title.value && price.value && description.value && pictures.value) {
     const formData = new FormData()
 
